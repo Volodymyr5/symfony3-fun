@@ -29,6 +29,15 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    # makes classes in src/AppBundle/DataFixtures available to be used as services
+    # and have a tag that allows actions to type-hint services
+    PageBundle\DataFixtures\:
+        resource: '../../src/PageBundle/DataFixtures'
+        tags: ['doctrine.fixture.orm']
+    TermBundle\DataFixtures\:
+        resource: '../../src/TermBundle/DataFixtures'
+        tags: ['doctrine.fixture.orm']
+
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:
