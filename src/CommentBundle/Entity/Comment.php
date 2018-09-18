@@ -1,8 +1,6 @@
 <?php
 
 namespace CommentBundle\Entity;
-
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,15 +24,24 @@ class Comment
     private $comment;
 
     /**
+     * @ORM\ManyToMany(targetEntity="PageBundle\Entity\Page", inversedBy="comments")
+     * @ORM\JoinTable(name="pages_comments")
+     */
+    private $pages;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $created;
 
     /**
-     * @ORM\ManyToMany(targetEntity="PageBundle\Entity\Page", inversedBy="comments")
-     * @ORM\JoinTable(name="pages_comments")
+     * Constructor
      */
-    private $pages;
+    public function __construct()
+    {
+        $this->setCreated(new \DateTime());
+        $this->pages = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -44,16 +51,6 @@ class Comment
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->pages = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->created = new \DateTime();
-        $this->pages = new ArrayCollection();
     }
 
     /**

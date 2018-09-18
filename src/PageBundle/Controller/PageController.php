@@ -4,6 +4,7 @@ namespace PageBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use TermBundle\Entity\Term;
 
 class PageController extends Controller
 {
@@ -12,7 +13,7 @@ class PageController extends Controller
         $pages = $pageRepo->findAll();
 
         return $this->render('PageBundle:Page:list.html.twig', [
-            'pages' => $pages
+            'pages' => $pages,
         ]);
     }
 

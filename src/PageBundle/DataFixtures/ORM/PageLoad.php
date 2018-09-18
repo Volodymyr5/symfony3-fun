@@ -3,12 +3,13 @@
 namespace PageBundle\DataFixtures\ORM;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use PageBundle\Entity\Page;
 use TermBundle\DataFixtures\ORM\TermLoad;
 use TermBundle\Entity\Term;
 
-class PageLoad extends Fixture
+class PageLoad extends Fixture implements DependentFixtureInterface
 {
     /**
      * @param ObjectManager $manager
