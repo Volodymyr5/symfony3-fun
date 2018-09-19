@@ -1,2 +1,5 @@
+app:
+    resource: '@AppBundle/Resources/config/routing.yml'
+
 page:
     resource: '@PageBundle/Resources/config/routing.yml'
