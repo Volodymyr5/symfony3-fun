@@ -2,13 +2,18 @@
 
 namespace PageBundle\Controller;
 
+use CommentBundle\Entity\Comment;
+use CommentBundle\Forms\CommentForm;
+use PageBundle\Entity\Page;
+use PageBundle\Forms\PageDeleteForm;
+use PageBundle\Forms\PageForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use TermBundle\Entity\Term;
+use Symfony\Component\HttpFoundation\Request;
 
 class PageController extends Controller
 {
-    public function listAction () {
+    public function listAction()
+    {
         $pageRepo = $this->getDoctrine()->getRepository('PageBundle:Page');
         $pages = $pageRepo->findAll();
 
@@ -17,7 +22,8 @@ class PageController extends Controller
         ]);
     }
 
-    public function viewAction ($id) {
+    public function viewAction($id, Request $request)
+    {
         $pageRepo = $this->getDoctrine()->getRepository('PageBundle:Page');
         $page = $pageRepo->find($id);
 
@@ -25,8 +31,88 @@ class PageController extends Controller
             throw $this->createNotFoundException("Page not found!");
         }
 
+        $commentForm = $this->createForm(CommentForm::class);
+        $commentForm->handleRequest($request);
+        if ($commentForm->isSubmitted()) {
+            /** @var Comment $comment */
+            $comment = $commentForm->getData();
+            $comment->addPage($page);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirectToRoute('page_view', ['id' => $page->getId()]);
+        }
+
         return $this->render('PageBundle:Page:view.html.twig', [
-            'page' => $page
+            'page' => $page,
+            'comment_form' => $commentForm->createView(),
+        ]);
+    }
+
+    public function addAction(Request $request)
+    {
+        $page = new Page();
+        $form = $this->createForm(PageForm::class, $page);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($page);
+            $em->flush();
+
+            return $this->redirectToRoute('page_list');
+        }
+
+        return $this->render('@Page/Page/add.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    public function editAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('PageBundle:Page');
+        $page = $repo->find($id);
+        if (!$page) {
+            return $this->redirectToRoute('page_list');
+        }
+
+        $form = $this->createForm(PageForm::class, $page);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $em->persist($page);
+            $em->flush();
+
+            return $this->redirectToRoute('page_view', ['id' => $page->getId()]);
+        }
+
+        return $this->render('@Page/Page/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    public function removeAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('PageBundle:Page');
+        $page = $repo->find($id);
+        if (!$page) {
+            return $this->redirectToRoute('page_list');
+        }
+
+        $form = $this->createForm(PageDeleteForm::class, null, [
+            'delete_id' => $page->getId()
+        ]);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $em->remove($page);
+            $em->flush();
+
+            return $this->redirectToRoute('page_list');
+        }
+
+        return $this->render('@Page/Page/delete.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }

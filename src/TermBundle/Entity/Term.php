@@ -163,4 +163,9 @@ class Term
     {
         return $this->pages;
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

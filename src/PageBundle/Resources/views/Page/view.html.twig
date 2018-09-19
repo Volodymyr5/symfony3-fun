@@ -7,7 +7,21 @@
             <div class="field field-title">{{ page.body }}</div>
             <div class="field field-category">Category: {{ page.category.name }}</div>
             <div class="field field-created">{{ page.created | date('d.m.Y') }}</div>
-            <div class="field field-comments">{{ include('@Comment/lists.html.twig', {'items': page.comments}) }}</div>
+            <div class="field field-comments">
+                <div class="comments-preview">
+                    <h2 class="comment-title">Comments</h2>
+
+                    {{ form(comment_form) }}
+
+                    <div class="list">
+                        {% for item in page.comments %}
+                            <div class="list-item">
+                                {{ include('@Comment/ViewMode/teaser.html.twig', {'item' : item}) }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

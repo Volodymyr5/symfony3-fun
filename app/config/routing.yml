@@ -3,3 +3,6 @@ app:
 
 page:
     resource: '@PageBundle/Resources/config/routing.yml'
+
+term:
+    resource: '@TermBundle/Resources/config/routing.yml'
