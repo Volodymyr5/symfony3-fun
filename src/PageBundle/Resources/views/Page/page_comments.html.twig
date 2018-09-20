@@ -9,7 +9,7 @@
                     <h2 class="comment-title">Comments</h2>
 
                     <div class="list">
-                        {% for item in page.comments %}
+                        {% for item in comments %}
                             <div class="list-item">
                                 {{ include('@Comment/ViewMode/teaser.html.twig', {'item' : item}) }}
                                 <ul>
@@ -21,6 +21,17 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="block-navigation">
+            <ul class="pager">
+                {% if navigator.pager > 1 %}
+                    <li class="page-item"><a href="{{ path('page_comments', {'id': page.id, 'pager': navigator.pager - 1}) }}">back</a></li>
+                {% endif %}
+                <li class="page-item">{{ navigator.pager }}</li>
+                {% if navigator.pager * navigator.limit < navigator.total %}
+                    <li class="page-item"><a href="{{ path('page_comments', {'id': page.id, 'pager': navigator.pager + 1}) }}">next</a></li>
+                {% endif %}
+            </ul>
         </div>
     </div>
 {% endblock %}

@@ -64,7 +64,7 @@ class PageController extends Controller
         ]);
     }
 
-    public function commentsAction ($id)
+    public function commentsAction (Request $request, $id)
     {
         $pageRepo = $this->getDoctrine()->getRepository('PageBundle:Page');
         $page = $pageRepo->find($id);
@@ -73,10 +73,20 @@ class PageController extends Controller
             throw $this->createNotFoundException("Page not found!");
         }
 
-        //$em = $this->getDoctrine()->getManager();
+        $commentRepo = $this->getDoctrine()->getRepository('CommentBundle:Comment');
+
+        $pager = [
+            'pager' => $request->query->get('pager') ? $request->query->get('pager') : 1,
+            'limit' => $request->query->get('limit') ? $request->query->get('limit') : 10,
+            'total' => $commentRepo->countComments($page)
+        ];
+
+        $comments = $commentRepo->findComments($page, $pager['pager'], $pager['limit']);
 
         return $this->render('PageBundle:Page:page_comments.html.twig', [
-            'page' => $page
+            'page' => $page,
+            'comments' => $comments,
+            'navigator' => $pager,
         ]);
     }
 
