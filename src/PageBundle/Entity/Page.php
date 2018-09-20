@@ -42,7 +42,7 @@ class Page
     private $created;
 
     /**
-     * @ORM\ManyToMany(targetEntity="CommentBundle\Entity\Comment", mappedBy="pages", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="CommentBundle\Entity\Comment", mappedBy="page", cascade={"persist", "remove"})
      * @ORM\OrderBy({"id" = "DESC"})
      */
     private $comments;
@@ -169,7 +169,7 @@ class Page
     public function addComment(\CommentBundle\Entity\Comment $comment)
     {
         $this->comments[] = $comment;
-        $comment->addPage($this);
+        $comment->setPage($this);
 
         return $this;
     }
