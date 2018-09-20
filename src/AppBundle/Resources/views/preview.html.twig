@@ -1,0 +1,11 @@
+{% extends "AppBundle:System:page.html.twig" %}
+
+{% block header %}
+    {{ render(controller('AppBundle:Block:logo')) }}
+    {{ render(controller('AppBundle:Block:mainMenu')) }}
+{% endblock %}
+
+{% block footer_bottom %}
+    {{ include('@App/Block/copyright.html.twig') }}
+    {{ render(controller('AppBundle:Block:mainMenuFooter')) }}
+{% endblock %}

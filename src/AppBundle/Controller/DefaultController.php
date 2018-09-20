@@ -16,4 +16,9 @@ class DefaultController extends Controller
     {
         return $this->render('AppBundle:App:index.html.twig', []);
     }
+
+    public function previewAction()
+    {
+        return $this->render('AppBundle::preview.html.twig');
+    }
 }

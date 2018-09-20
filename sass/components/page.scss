@@ -1,0 +1,7 @@
+@import "../default";
+
+.page{
+    &-wrap{
+        background-image: image-url('page-bg-1.jpg');
+    }
+}
