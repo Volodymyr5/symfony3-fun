@@ -6,6 +6,12 @@ page_add:
     path: /page/add
     defaults: { _controller: PageBundle:Page:add }
 
+page_comments:
+    path: /page/{id}/comments
+    defaults: { _controller: PageBundle:Page:comments }
+    requirements:
+        id: '\d+'
+
 page_edit:
     path: /page/{id}/edit
     defaults: { _controller: PageBundle:Page:edit }

@@ -12,13 +12,21 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PageController extends Controller
 {
-    public function listAction()
+    public function listAction(Request $request)
     {
         $pageRepo = $this->getDoctrine()->getRepository('PageBundle:Page');
-        $pages = $pageRepo->findAll();
+
+        $pager = [
+            'pager' => $request->query->get('page') ? $request->query->get('page') : 1,
+            'limit' => $request->query->get('limit') ? $request->query->get('limit') : 2,
+            'total' => $pageRepo->countPages()
+        ];
+
+        $pages = $pageRepo->findPages($pager['pager'], $pager['limit']);
 
         return $this->render('PageBundle:Page:list.html.twig', [
             'pages' => $pages,
+            'navigator' => $pager
         ]);
     }
 
@@ -53,6 +61,22 @@ class PageController extends Controller
             'page' => $page,
             'comment_form' => $commentForm->createView(),
             'page_comments' => $comments
+        ]);
+    }
+
+    public function commentsAction ($id)
+    {
+        $pageRepo = $this->getDoctrine()->getRepository('PageBundle:Page');
+        $page = $pageRepo->find($id);
+
+        if (!$page) {
+            throw $this->createNotFoundException("Page not found!");
+        }
+
+        //$em = $this->getDoctrine()->getManager();
+
+        return $this->render('PageBundle:Page:page_comments.html.twig', [
+            'page' => $page
         ]);
     }
 
