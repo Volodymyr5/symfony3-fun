@@ -22,8 +22,20 @@ class PageRepository extends EntityRepository
         $result = null;
         try {
             $result = $query->getQuery()->getOneOrNullResult();
-        } catch (\Exception $e) {}
+        } catch (\Exception $e) {
+        }
 
         return $result ? array_shift($result) : 0;
+    }
+
+    public function findByWord($word)
+    {
+        $query = $this
+            ->createQueryBuilder('p')
+            ->where('p.body LIKE :word')
+            ->setParameter('word', '%' . $word . '%')
+            ->setMaxResults(20);
+
+        return $query->getQuery()->getResult();
     }
 }

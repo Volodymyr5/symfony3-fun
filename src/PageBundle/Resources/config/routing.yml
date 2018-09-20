@@ -29,3 +29,7 @@ page_view:
     defaults: { _controller: PageBundle:Page:view }
     requirements:
         id: '\d+'
+
+page_search:
+    path: /page/search
+    defaults: { _controller: PageBundle:Page:search }

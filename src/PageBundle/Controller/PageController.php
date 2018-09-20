@@ -7,8 +7,10 @@ use CommentBundle\Forms\CommentForm;
 use PageBundle\Entity\Page;
 use PageBundle\Forms\PageDeleteForm;
 use PageBundle\Forms\PageForm;
+use PageBundle\Forms\SearchForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PageController extends Controller
 {
@@ -153,6 +155,25 @@ class PageController extends Controller
 
         return $this->render('@Page/Page/delete.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    public function searchAction(Request $request)
+    {
+        $pageRepo = $this->getDoctrine()->getRepository('PageBundle:Page');
+
+        $searchForm = $this->createForm(SearchForm::class);
+        $searchForm->handleRequest($request);
+
+        $pages = null;
+        if ($searchForm->isSubmitted()) {
+            $data = $searchForm->getData();
+            $pages = $pageRepo->findByWord($data['search']);
+        }
+
+        return $this->render('PageBundle:Page:search.html.twig', [
+            'pages' => $pages,
+            'form' => $searchForm->createView(),
         ]);
     }
 }
