@@ -1,4 +1,7 @@
-@import "compass";
+@import "../default";
+@import "../inc/variable";
+@import "../inc/mixins";
+
 
 html, body {
     padding: 0;
@@ -12,4 +15,13 @@ body {
 
 * {
     @include box-sizing;
+}
+
+a {
+    color: $red;
+    text-decoration: none;
+    font-family: "Oswald", sans-serif;
+    &:hover {
+        text-decoration: underline;
+    }
 }

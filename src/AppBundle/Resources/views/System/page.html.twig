@@ -1,6 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block stylesheets %}
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/base/default.css') }}">
     <link rel="stylesheet" href="{{ asset('css/base/typography.css') }}">
     <link rel="stylesheet" href="{{ asset('css/base/form.css') }}">
@@ -17,7 +18,7 @@
                     {% block header %}{% endblock %}
                 </div>
             </header>
-            <div class="main">
+            <div class="main-wrap">
                 <aside class="sidebar-left">
                     <div class="region region-sidebar-left">
                         {% block sidebar_left %}{% endblock %}
