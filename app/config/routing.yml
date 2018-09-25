@@ -1,15 +1,3 @@
 app:
-    resource: '@AppBundle/Resources/config/routing.yml'
-
-page:
-    resource: '@PageBundle/Resources/config/routing.yml'
-
-term:
-    resource: '@TermBundle/Resources/config/routing.yml'
-
-comment:
-    resource: '@CommentBundle/Resources/config/routing.yml'
-
-
-user:
-    resource: '@UserBundle/Resources/config/routing.yml'
+    resource: "@AppBundle/Controller/"
+    type:     annotation
