@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Genus
  * @package AppBundle\Entity
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\GenusRepository")
  * @ORM\Table(name="genus")
  */
 class Genus
@@ -38,6 +38,11 @@ class Genus
      * @ORM\Column(type="string", nullable=true)
      */
     private $funFact;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isPublised;
 
     /**
      * @return mixed
@@ -108,7 +113,14 @@ class Genus
      */
     public function getUpdatedAt()
     {
-        // TODO 
-        return 0;//\DateTime('-', rand(1, 100) . ' days');
+        return rand(1527018835, 1538028835);
+    }
+
+    /**
+     * @param mixed $isPublised
+     */
+    public function setIsPublised($isPublised)
+    {
+        $this->isPublised = $isPublised;
     }
 }

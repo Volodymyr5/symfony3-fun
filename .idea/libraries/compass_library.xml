@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="compass-library">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../../../../../lib/gems/2.3.0/gems/sassy-maps-0.4.0" />
+      <root url="file://$PROJECT_DIR$/../../../../../../lib/gems/2.3.0/gems/compass-core-1.0.3" />
+      <root url="file://$PROJECT_DIR$/../../../../../../lib/gems/2.3.0/gems/breakpoint-2.7.1" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>
