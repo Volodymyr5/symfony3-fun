@@ -3,16 +3,16 @@
 namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\Genus;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Nelmio\Alice\Fixtures as NAFixtures;
+use Nelmio\Alice\Fixtures;
 
-class LoadFixtures extends Fixture
+class LoadFixtures implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        NAFixtures::load(
-            __DIR__ . '/fixtures.yml',
+        $objects = Fixtures::load(
+            __DIR__.'/fixtures.yml',
             $manager,
             [
                 'providers' => [$this]

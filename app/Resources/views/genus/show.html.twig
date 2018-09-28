@@ -10,17 +10,16 @@
         <div class="genus-details">
             <dl class="genus-details-list">
                 <dt>Subfamily:</dt>
-                <dd>{{ genus.subFamily }}</dd>
+                <dd>{{ genus.subFamily.name }}</dd>
                 <dt>Known Species:</dt>
                 <dd>{{ genus.speciesCount|number_format }}</dd>
                 <dt>Fun Fact:</dt>
                 <dd>{{ genus.funFact|markdownify }}</dd>
-                <dt>Recent notes:</dt>
-                <dd>{{ recentNotesCount }}</dd>
+                <dt>Recent Notes</dt>
+                <dd>{{ recentNoteCount }}</dd>
             </dl>
         </div>
     </div>
-
     <div id="js-notes-wrapper"></div>
 {% endblock %}
 
@@ -35,8 +34,8 @@
         var notesUrl = '{{ path('genus_show_notes', {'name': genus.name}) }}';
 
         ReactDOM.render(
-                <NoteSection url={notesUrl}/>,
-                document.getElementById('js-notes-wrapper')
+          <NoteSection url={notesUrl} />,
+          document.getElementById('js-notes-wrapper')
         );
     </script>
 {% endblock %}

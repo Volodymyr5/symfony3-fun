@@ -2,14 +2,19 @@ knp
 
 https://coursehunters.net/course/knp-symfony3
 
-Part 6
-Lesson 54.
+Part 7
+Lesson 69.
 
 https://symfony.com/doc/3.4/reference/dic_tags.html
+https://symfony.com/doc/3.4/reference/forms/types.html
+https://symfony.com/doc/3.4/reference/forms/twig_reference.html
+https://symfony.com/doc/3.4/validation.html#constraints
 
 bin/console debug:route
 
 bin/console debug:container
+
+bin/console cache:clear
 
 bin/console doctrine:database:create
 bin/console doctrine:database:drop --force
